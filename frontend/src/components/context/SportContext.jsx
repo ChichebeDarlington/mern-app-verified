@@ -2,7 +2,6 @@ import {createContext, useContext, useReducer, useEffect } from "react";
 import { reducer } from "../reducer/sportReducer";
 import axios from "axios"
 
- const SportsContext = createContext()
 
 const initialState = {
     sports: null,
@@ -11,6 +10,8 @@ const initialState = {
     load:"",
     error:null
 }
+
+const SportsContext = createContext()
 
 export const SportsContextProvider = ({children})=>{
 const [state, dispatch] = useReducer(reducer, initialState)

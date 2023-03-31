@@ -11,7 +11,7 @@ export const reducer = (state, action)=>{
                     sports:[...state, action.payload]
                 }
             case "DELETE_SPORT":
-                return {...state, sports:state.sports.filter((sport)=>{
+                return {...state, sports: state.sports.filter((sport)=>{
                     return sport._id !== action.payload._id
                 })}
 

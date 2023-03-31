@@ -1,5 +1,6 @@
 import moment from "moment"
 import { useSportHook } from "./context/SportContext"
+import {FaRegTrashAlt} from "react-icons/all"
 
 
 
@@ -24,7 +25,7 @@ const SportDetails = ({title, reps, load, createdAt, _id}) => {
         <p><strong>Load(kg): {load}</strong></p>
         <p><strong>Reps(bls): {reps}</strong></p>
         <h6><small>{moment(createdAt).toNow()}</small></h6>
-        <span onClick={handleErase}>Erase</span>
+        <span onClick={handleErase}><FaRegTrashAlt/></span>
     </section>
   )
 }

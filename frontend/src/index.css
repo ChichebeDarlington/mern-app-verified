@@ -5,6 +5,7 @@
 :root {
   --primary: #1aac83;
   --error: #e7195a;
+  --success: #1aaa01;
 }
 
 body{
@@ -61,9 +62,10 @@ header a {
   right: 20px;
   cursor: pointer;
   /* background-color: #f1f1f1; */
-  background-color: crimson;
+  /* background-color: crimson; */
   padding: 6px;
-  color: #333;
+  /* color: #333; */
+  color: crimson;
   border-radius: 2rem;
 }
 label, input{
@@ -93,4 +95,10 @@ section.error{
   border: 2px dotted var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+input.error{
+  border: 1px solid var(--error);
+}
+input.success{
+  border: 1px solid var(--success);
 }

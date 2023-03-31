@@ -37,6 +37,25 @@ const getAllSports = async(req, res)=>{
  const postSport = async(req, res)=>{
     const {title, reps, load} = req.body;
 
+
+    let fieldsEmpty = new Array()
+
+    if(!title){
+        fieldsEmpty.push("title")
+    }
+
+    if(!reps){
+        fieldsEmpty.push("reps")
+    }
+
+    if(!load){
+        fieldsEmpty.push("load")
+    }
+
+    if(fieldsEmpty.length > 0){
+        return res.status(401).json({error:"Input fields can not be empty....", fieldsEmpty})
+    }
+
     try {
         const sport = await Sport.create({title, reps, load});
         res.status(201).json(sport)
