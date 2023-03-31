@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react"
+import { useSportHook } from "../components/context/SportContext"
+import SportDetails from "../components/SportDetails"
+import SportForm from "../components/SportForm"
+
+
 // import axios from "axios"
 
 
 const Home = () => {
-const [sports, setSports] = useState(null)
+// const [sports, setSports] = useState(null)
+const {sports} = useSportHook()
+console.log(sports)
 
-const fetchSports = async()=>{
-    let response = await fetch("http://localhost:8000/api/sports");
-    let data = await response.json()
-    // console.log(data);
-    if(response.ok){
-        setSports(data)
-    }
-}
-
-useEffect(()=>{
-   fetchSports()
-},[])
 
 
   return (
@@ -24,13 +19,10 @@ useEffect(()=>{
         <div className="sports">
             {sports && sports.map((sport)=>{
                 console.log(sport);
-              return  <div className="" key={sport._id}>
-                    <h3>{sport.title}</h3>
-                    <h4>{sport.reps}</h4>
-                    <p>{sport.load}</p>
-                </div>
+              return  <SportDetails key={sport._id} {...sport}/>
             })}
         </div>
+        <SportForm/>
     </div>
   )
 }
