@@ -3,37 +3,48 @@ import { useSportHook } from './context/SportContext'
 
 
 const SportForm = () => {
-    const {fetchSports} = useSportHook()
-    const [title, setTitle] = useState("")
-    const [reps, setReps] = useState("")
-    const [load, setLoad] = useState("")
-    const [error, setError] = useState(null)
-    const [empty, setEmpty] = useState([])
+    const {
+      fetchSports, 
+      title,
+      setTitle,
+      reps,
+      setReps,
+      load,
+      setLoad,
+      error,
+      setError,
+      empty,
+      setEmpty
+    } = useSportHook()
+    
+    
+
 
 
     const handleForm = async(w)=>{
       w.preventDefault()
-      const sport = {title, reps, load}
+      // const sport = {title, reps, load}
   
       const response = await fetch("http://localhost:8000/api/sports",{
           method: "POST",
-          body: JSON.stringify(sport),
+          body: JSON.stringify({title, reps, load}),
           headers: {
               "content-type": "application/json"
           }
       })
       const data = await response.json()
+      fetchSports()
       if(!response.ok){
+        console.log("error occured");
           setError(data.error)
           setEmpty(data.fieldsEmpty)
+         
       }
       else{
-          setLoad("");
-          setReps("");
-          setTitle("");
-          setError(null)
-          setEmpty([])
           fetchSports()
+          setTitle("")
+          setReps("")
+          setLoad("")
       }
   }
    
@@ -43,17 +54,23 @@ const SportForm = () => {
         <section className='input-container'>
           <h3>Create a sport workout</h3>
 
-          <label htmlFor="">Sport Title</label>
-        <input type="text"
+          <label>Sport Title</label>
+        <input
+         type="text"
+        name='title'
          onChange={(e)=>setTitle(e.target.value)}
+        // onChange={handleChange}
         value={title}
         className={empty.includes("title")? "error":"success"}
         />
         </section>
 
         <section className='input-container'>
-          <label htmlFor="">Load (in kilogram):</label>
-        <input type="number"
+          <label>Load (in kilogram):</label>
+        <input
+         type="number"
+         name='load'
+        // onChange={handleChange}
          onChange={(e)=>setLoad(e.target.value)}
         value={load}
         className={empty.includes("load")? "error":"success"}
@@ -62,8 +79,12 @@ const SportForm = () => {
         </section>
 
         <section className='input-container'>
-          <label htmlFor="">Reps (in pounds):</label>
-        <input type="number"
+          <label>Reps (in pounds):</label>
+        <input 
+        type="number"
+        name='reps'
+        // onChange={(e)=>dispatch({type: "SET_REPS", payload:e.target.value})}
+        // onChange={handleChange}
          onChange={(e)=>setReps(e.target.value)}
         value={reps}
         className={empty.includes("reps")? "error":"success"}

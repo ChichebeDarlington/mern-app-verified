@@ -74,9 +74,9 @@ const getAllSports = async(req, res)=>{
     }
 
     try {
-        const sport = await Sport.findOneAndDelete(id)
+        const sport = await Sport.findOneAndDelete({_id:id})
         if(!sport){
-           return res.status(400).json({error: "No such sport"})
+           return res.status(400).json({error: "No such sport", sport})
         }
        return res.status(200).json({msg: "Successfully deleted"})
     } catch (error) {
