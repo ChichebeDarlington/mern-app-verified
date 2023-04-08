@@ -4,8 +4,10 @@ const mongoose = require("mongoose")
 
 
 const getAllSports = async(req, res)=>{
+    const user_id = req.auth._id
+
     try {
-        const allSports = await Sport.find({})
+        const allSports = await Sport.find({user_id})
         .sort({createdAt: -1})
         return res.status(200).json(allSports)
     } catch (error) {
@@ -58,7 +60,7 @@ const getAllSports = async(req, res)=>{
 
     try {
         const user_id = req.auth._id
-        console.log(req.auth);
+        // console.log(req.auth);
         const sport = await Sport.create({title, reps, load, user_id});
         res.status(201).json(sport)
     } catch (error) {

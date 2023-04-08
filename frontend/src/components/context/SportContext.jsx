@@ -17,9 +17,6 @@ const [title, setTitle] = useState("")
     const [empty, setEmpty] = useState("")
     const [error, setError] = useState("")
 
-
-   
-
     return(
         <SportsContext.Provider value={{
          ...state, 
