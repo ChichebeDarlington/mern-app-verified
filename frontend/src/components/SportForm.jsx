@@ -1,10 +1,11 @@
-import {useState} from 'react'
+
+import { useAuthContext } from './context/AuthContext'
 import { useSportHook } from './context/SportContext'
 
 
-const SportForm = () => {
+
+const SportForm = ({fetchSports}) => {
     const {
-      fetchSports, 
       title,
       setTitle,
       reps,
@@ -17,23 +18,23 @@ const SportForm = () => {
       setEmpty
     } = useSportHook()
     
-    
-
-
+    const {user} = useAuthContext()
 
     const handleForm = async(w)=>{
       w.preventDefault()
-      // const sport = {title, reps, load}
+      if(!user){
+        throw new Error("You must be logged in");
+      }
   
       const response = await fetch("http://localhost:8000/api/sports",{
           method: "POST",
           body: JSON.stringify({title, reps, load}),
           headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+              "Authorization": `Bearing ${user.token}`
           }
       })
       const data = await response.json()
-      fetchSports()
       if(!response.ok){
         console.log("error occured");
           setError(data.error)
@@ -59,7 +60,6 @@ const SportForm = () => {
          type="text"
         name='title'
          onChange={(e)=>setTitle(e.target.value)}
-        // onChange={handleChange}
         value={title}
         className={empty.includes("title")? "error":"success"}
         />
@@ -70,7 +70,6 @@ const SportForm = () => {
         <input
          type="number"
          name='load'
-        // onChange={handleChange}
          onChange={(e)=>setLoad(e.target.value)}
         value={load}
         className={empty.includes("load")? "error":"success"}
@@ -83,8 +82,6 @@ const SportForm = () => {
         <input 
         type="number"
         name='reps'
-        // onChange={(e)=>dispatch({type: "SET_REPS", payload:e.target.value})}
-        // onChange={handleChange}
          onChange={(e)=>setReps(e.target.value)}
         value={reps}
         className={empty.includes("reps")? "error":"success"}

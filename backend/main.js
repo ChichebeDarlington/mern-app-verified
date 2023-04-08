@@ -1,5 +1,6 @@
 const express = require("express")
 const sportsRoute = require("./routes/sports.js")
+const userRoute = require("./routes/user.js")
 const mongooseConnect = require("./db/database.js")
 const cors = require("cors")
 
@@ -13,7 +14,9 @@ web.use(cors())
 web.use(express.json())
 
 // middlewares route
+web.use("/api/user", userRoute)
 web.use("/api/sports", sportsRoute)
+
 
 // listening to requests
 const port = process.env.PORT || 9000

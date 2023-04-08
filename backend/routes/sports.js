@@ -1,7 +1,8 @@
 const express = require("express")
+const authentification = require("../middlewares/auth.js")
 
 const {
-    getAllSports, 
+getAllSports, 
 getSingleSport, 
 postSport, 
 deleteSport, 
@@ -9,6 +10,9 @@ updateSport
 } = require("../controllers/sports.js")
 
 const router = express.Router()
+
+// authentification for all workout
+router.use(authentification)
 
 // Get all sports request
 router.get("/", getAllSports)

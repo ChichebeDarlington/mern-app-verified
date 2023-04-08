@@ -57,13 +57,14 @@ const getAllSports = async(req, res)=>{
     }
 
     try {
-        const sport = await Sport.create({title, reps, load});
+        const user_id = req.auth._id
+        console.log(req.auth);
+        const sport = await Sport.create({title, reps, load, user_id});
         res.status(201).json(sport)
     } catch (error) {
         console.log(error)
         res.status(400).json({error: error.message})
     }
-    // return res.json({msg: "Post a single sport request"})
 }
 
  const deleteSport = async(req, res)=>{
