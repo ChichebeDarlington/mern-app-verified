@@ -1,6 +1,4 @@
-
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap");
 
 :root {
   --primary: #1aac83;
@@ -8,15 +6,15 @@
   --success: #1aaa01;
 }
 
-body{
+body {
   background-color: #f1f1f1;
   margin: 0;
   font-family: poppins;
 }
-header{
+header {
   background-color: #fff;
 }
-header .container{
+header .container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 10px 20px;
@@ -28,17 +26,17 @@ header a {
   color: #333;
   text-decoration: none;
 }
-.pages{
+.pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
 }
-.home{
+.home {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-.sport-details{
+.sport-details {
   background-color: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -46,17 +44,17 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.07);
 }
-.sport-details h4{
+.sport-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2rem;
   color: var(--primary);
 }
-.sport-details p{
+.sport-details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-.sport-details span{
+.sport-details span {
   position: absolute;
   top: 70px;
   right: 20px;
@@ -68,14 +66,15 @@ header a {
   color: crimson;
   border-radius: 2rem;
 }
-.sport-details span.edit{
+.sport-details span.edit {
   margin: 2rem 0;
   color: #1aaa01;
 }
-label, input{
+label,
+input {
   display: block;
 }
-input{
+input {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -84,41 +83,44 @@ input{
   border-radius: 10px;
   box-sizing: border-box;
 }
-form button{
+form button {
   background-color: var(--primary);
   border: 0;
   color: #fff;
-  padding: 2px;
+  padding: 10px;
   font-family: poppins;
   border-radius: 7px;
   cursor: pointer;
 }
-section.error{
+form button:hover {
+  background-color: #1aaa01;
+}
+section.error {
   padding: 10px;
   background-color: #ffefef;
   border: 2px dotted var(--error);
   border-radius: 4px;
   margin: 20px 0;
 }
-input.error{
+input.error {
   border: 1px solid var(--error);
 }
-input.success{
+input.success {
   border: 1px solid var(--success);
 }
 
 /* nav */
-nav{
+nav {
   display: flex;
   align-items: center;
 }
-nav a{
+nav a {
   margin-left: 10px;
 }
 
-nav button{
+nav button {
   background-color: #f1f1f1;
-  color:  var(--primary);
+  color: var(--primary);
   border: 1.5px solid var(--primary);
   margin-left: 15px;
   padding: 5px 10px;
@@ -129,13 +131,11 @@ nav button{
 }
 
 /* auth forms styles */
-form.sign-up, form.login{
+form.sign-up,
+form.login {
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
   background-color: #ddd;
   border-radius: 5px;
 }
-
-
-

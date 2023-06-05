@@ -1,26 +1,31 @@
-import {createContext, useContext, useReducer, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import { reducer } from "../reducer/sportReducer";
 
-
 const initialState = {
-    sports: [],
-}
+  sports: [],
+};
 
-const SportsContext = createContext()
+const SportsContext = createContext();
 
-export const SportsContextProvider = ({children})=>{
+export const SportsContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [title, setTitle] = useState("");
+  const [reps, setReps] = useState("");
+  const [load, setLoad] = useState("");
+  const [empty, setEmpty] = useState("");
+  const [error, setError] = useState("");
 
-const [state, dispatch] = useReducer(reducer, initialState)
-const [title, setTitle] = useState("")
-    const [reps, setReps] = useState("")
-    const [load, setLoad] = useState("")
-    const [empty, setEmpty] = useState("")
-    const [error, setError] = useState("")
-
-    return(
-        <SportsContext.Provider value={{
-         ...state, 
-        dispatch, 
+  return (
+    <SportsContext.Provider
+      value={{
+        ...state,
+        dispatch,
         title,
         setTitle,
         reps,
@@ -30,13 +35,14 @@ const [title, setTitle] = useState("")
         error,
         setError,
         empty,
-        setEmpty
-        }}>
-            {children}
-        </SportsContext.Provider>
-    )
-}
+        setEmpty,
+      }}
+    >
+      {children}
+    </SportsContext.Provider>
+  );
+};
 
-export const useSportHook = ()=>{
-    return useContext(SportsContext)
-}
+export const useSportHook = () => {
+  return useContext(SportsContext);
+};

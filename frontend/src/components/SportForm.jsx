@@ -1,97 +1,93 @@
+import { useAuthContext } from "./context/AuthContext";
+import { useSportHook } from "./context/SportContext";
 
-import { useAuthContext } from './context/AuthContext'
-import { useSportHook } from './context/SportContext'
+const SportForm = ({ fetchSports }) => {
+  const {
+    title,
+    setTitle,
+    reps,
+    setReps,
+    load,
+    setLoad,
+    error,
+    setError,
+    empty,
+    setEmpty,
+  } = useSportHook();
 
+  const { user } = useAuthContext();
 
+  const handleForm = async (w) => {
+    w.preventDefault();
+    if (!user) {
+      throw new Error("You must be logged in");
+    }
 
-const SportForm = ({fetchSports}) => {
-    const {
-      title,
-      setTitle,
-      reps,
-      setReps,
-      load,
-      setLoad,
-      error,
-      setError,
-      empty,
-      setEmpty
-    } = useSportHook()
-    
-    const {user} = useAuthContext()
-
-    const handleForm = async(w)=>{
-      w.preventDefault()
-      if(!user){
-        throw new Error("You must be logged in");
-      }
-  
-      const response = await fetch("http://localhost:8000/api/sports",{
-          method: "POST",
-          body: JSON.stringify({title, reps, load}),
-          headers: {
-              "content-type": "application/json",
-              "Authorization": `Bearing ${user.token}`
-          }
-      })
-      const data = await response.json()
-      if(!response.ok){
-        console.log("error occured");
-          setError(data.error)
-          setEmpty(data.fieldsEmpty)
-         
-      }
-      else{
-          fetchSports()
-          setTitle("")
-          setReps("")
-          setLoad("")
-      }
-  }
-   
+    const response = await fetch("http://localhost:8000/api/sports", {
+      method: "POST",
+      body: JSON.stringify({ title, reps, load }),
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      console.log("error occured");
+      setError(data.error);
+      setEmpty(data.fieldsEmpty);
+    } else {
+      fetchSports();
+      setTitle("");
+      setReps("");
+      setLoad("");
+    }
+  };
 
   return (
-    <form className='form' onSubmit={handleForm}>
-        <section className='input-container'>
-          <h3>Create a sport workout</h3>
+    <form className="form" onSubmit={handleForm}>
+      <section className="input-container">
+        <h3>Create a sport workout</h3>
 
-          <label>Sport Title</label>
+        <label>Sport Title</label>
         <input
-         type="text"
-        name='title'
-         onChange={(e)=>setTitle(e.target.value)}
-        value={title}
-        className={empty.includes("title")? "error":"success"}
+          type="text"
+          name="title"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+          className={empty.includes("title") ? "error" : "success"}
         />
-        </section>
+      </section>
 
-        <section className='input-container'>
-          <label>Load (in kilogram):</label>
+      <section className="input-container">
+        <label>Load (in kilogram):</label>
         <input
-         type="number"
-         name='load'
-         onChange={(e)=>setLoad(e.target.value)}
-        value={load}
-        className={empty.includes("load")? "error":"success"}
-
+          type="number"
+          name="load"
+          onChange={(e) => setLoad(e.target.value)}
+          value={load}
+          className={empty.includes("load") ? "error" : "success"}
         />
-        </section>
+      </section>
 
-        <section className='input-container'>
-          <label>Reps (in pounds):</label>
-        <input 
-        type="number"
-        name='reps'
-         onChange={(e)=>setReps(e.target.value)}
-        value={reps}
-        className={empty.includes("reps")? "error":"success"}
-
+      <section className="input-container">
+        <label>Reps (in pounds):</label>
+        <input
+          type="number"
+          name="reps"
+          onChange={(e) => setReps(e.target.value)}
+          value={reps}
+          className={empty.includes("reps") ? "error" : "success"}
         />
-        </section>
-        <section className='btn-container'><button type='submit' className='btn'>Create sports type</button></section>
-        {error && <section className='error'>{error}</section>}
+      </section>
+      <section className="btn-container">
+        <button type="submit" className="btn">
+          Create sports type
+        </button>
+      </section>
+      {error && <section className="error">{error}</section>}
     </form>
-  )
-}
+  );
+};
 
-export default SportForm
+export default SportForm;
