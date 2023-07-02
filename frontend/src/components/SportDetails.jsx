@@ -16,12 +16,15 @@ const SportDetails = ({ title, reps, load, createdAt, _id, fetchSports }) => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8000/api/sports/${_id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      `https://mern-stack-verified.onrender.com/api/sports/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const data = response.json();
     console.log(data);
     if (response.ok) {
@@ -31,15 +34,18 @@ const SportDetails = ({ title, reps, load, createdAt, _id, fetchSports }) => {
   };
 
   const handleEdit = async (e) => {
-    const response = await fetch(`http://localhost:8000/api/sports/${_id}`, {
-      method: "PATCH",
-      body: JSON.stringify({ title, reps, load }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      `https://mern-stack-verified.onrender.com/api/sports/${_id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ title, reps, load }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const data = await response.json();
     // console.log(data);
     if (response.ok) {

@@ -1,5 +1,7 @@
 import { useAuthContext } from "./context/AuthContext";
 import { useSportHook } from "./context/SportContext";
+// https://mern-stack-verified.onrender.com/
+// http://localhost:8000
 
 const SportForm = ({ fetchSports }) => {
   const {
@@ -23,14 +25,17 @@ const SportForm = ({ fetchSports }) => {
       throw new Error("You must be logged in");
     }
 
-    const response = await fetch("http://localhost:8000/api/sports", {
-      method: "POST",
-      body: JSON.stringify({ title, reps, load }),
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://mern-stack-verified.onrender.com/api/sports",
+      {
+        method: "POST",
+        body: JSON.stringify({ title, reps, load }),
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const data = await response.json();
     if (!response.ok) {
       console.log("error occured");

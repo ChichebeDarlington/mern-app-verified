@@ -17,12 +17,15 @@ const Edit = () => {
   const { editId } = useParams();
 
   const fetchSports = async () => {
-    const response = await fetch(`http://localhost:8000/api/sports/${editId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      `https://mern-stack-verified.onrender.com/api/sports/${editId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     let data = await response.json();
     setLoads(data.load);
     setTitle(data.title);
@@ -30,15 +33,18 @@ const Edit = () => {
   };
 
   const handleEdit = async (e) => {
-    await fetch(`http://localhost:8000/api/sports/${editId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ title, reps, load }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    await fetch(
+      `https://mern-stack-verified.onrender.com/api/sports/${editId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ title, reps, load }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     navigate("/");
   };
 
