@@ -2,10 +2,11 @@ import moment from "moment";
 import { useSportHook } from "./context/SportContext";
 import { FaRegTrashAlt, FiEdit } from "react-icons/all";
 import { useAuthContext } from "./context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SportDetails = ({ title, reps, load, createdAt, _id, fetchSports }) => {
   const { dispatch, setTitle, setReps, setLoad } = useSportHook();
+  const navigate = useNavigate();
 
   const { user } = useAuthContext();
 
@@ -37,8 +38,8 @@ const SportDetails = ({ title, reps, load, createdAt, _id, fetchSports }) => {
     const response = await fetch(
       `https://mern-stack-verified.onrender.com/api/sports/${_id}`,
       {
-        method: "PATCH",
-        body: JSON.stringify({ title, reps, load }),
+        method: "GET",
+        // body: JSON.stringify({ title, reps, load }),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -53,6 +54,7 @@ const SportDetails = ({ title, reps, load, createdAt, _id, fetchSports }) => {
       setReps(data.reps);
       setLoad(data.load);
     }
+    // navigate("/");
   };
 
   return (
